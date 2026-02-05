@@ -714,9 +714,14 @@
         // URLパラメータから自動入力
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const text = params.get('text');
-            if (text) {
-                document.getElementById('originalPost').value = decodeURIComponent(text);
+            const post = params.get('post');
+            const reply = params.get('reply');
+            
+            if (post) {
+                document.getElementById('originalPost').value = decodeURIComponent(post);
+            }
+            if (reply) {
+                document.getElementById('inputReply').value = decodeURIComponent(reply);
             }
         });
     </script>
