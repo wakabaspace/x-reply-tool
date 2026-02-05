@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自分らしいリプ生成ツール</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <title>X リプ生成ツール - ブックマークレット設定ガイド</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,713 +12,218 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #1D9BF0;
-            --primary-light: #4AB3F4;
-            --primary-dark: #1A8CD8;
-            --secondary: #EFF9FF;
-            --text: #0F1419;
-            --text-light: #536471;
-            --bg: #F7FBFF;
-            --card: #FFFFFF;
-            --border: #D4E9F7;
-            --shadow: rgba(29, 155, 240, 0.15);
-            --accent: #1D9BF0;
-        }
-
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background: #F7FBFF;
+            color: #0F1419;
             line-height: 1.7;
+            padding: 2rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem 0;
         }
 
         h1 {
-            font-family: 'Outfit', 'Noto Sans JP', sans-serif;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+            font-size: 2rem;
+            color: #1D9BF0;
+            margin-bottom: 1rem;
         }
 
-        .subtitle {
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .tab {
-            padding: 1rem 2rem;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 1rem;
-            font-family: 'Noto Sans JP', sans-serif;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-        }
-
-        .tab:hover {
-            color: var(--primary);
-        }
-
-        .tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            font-weight: 500;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        h2 {
+            font-size: 1.5rem;
+            color: #0F1419;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #D4E9F7;
         }
 
         .card {
-            background: var(--card);
+            background: white;
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 20px var(--shadow);
+            box-shadow: 0 4px 20px rgba(29, 155, 240, 0.15);
             margin-bottom: 2rem;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        input[type="text"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        input[type="text"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.1);
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .button {
-            padding: 0.75rem 2rem;
-            background: var(--primary);
+        .bookmarklet-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #1D9BF0;
             color: white;
-            border: none;
+            text-decoration: none;
             border-radius: 24px;
-            cursor: pointer;
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1rem;
             font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .button:hover {
-            background: var(--primary-light);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        .button-secondary {
-            background: var(--secondary);
-            color: var(--primary);
-            border: 1px solid var(--border);
-        }
-
-        .button-secondary:hover {
-            background: var(--border);
-        }
-
-        .pattern-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .pattern-item {
-            background: var(--secondary);
-            padding: 1rem;
-            border-radius: 12px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .pattern-category {
-            color: var(--primary);
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .pattern-template {
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
-        .pattern-variations {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        .candidate-card {
-            background: var(--card);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s;
-        }
-
-        .candidate-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        .candidate-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .candidate-category {
-            color: var(--primary);
-            font-weight: 500;
-            font-size: 0.875rem;
-        }
-
-        .candidate-text {
             font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            transition: all 0.2s;
+            cursor: move;
+            user-select: none;
         }
 
-        .copy-button {
-            padding: 0.5rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
+        .bookmarklet-button:hover {
+            background: #1A8CD8;
+            transform: translateY(-2px);
         }
 
-        .copy-button:hover {
-            background: var(--primary-dark);
+        .step {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            position: relative;
         }
 
-        .regenerate-button {
-            width: 100%;
-            margin-top: 1rem;
+        .step::before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: #1D9BF0;
+            font-size: 1.5rem;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-        }
-
-        .delete-button {
-            padding: 0.5rem 1rem;
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.3s;
-        }
-
-        .delete-button:hover {
-            background: #FFE5E5;
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .history-item {
-            background: var(--secondary);
+        .note {
+            background: #EFF9FF;
+            border-left: 4px solid #1D9BF0;
             padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
         }
 
-        .history-date {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
+        .warning {
+            background: #FFF4E5;
+            border-left: 4px solid #FF9500;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
         }
 
-        .history-text {
-            font-weight: 500;
+        code {
+            background: #F0F0F0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+        ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
 
-            h1 {
-                font-size: 2rem;
-            }
+        li {
+            margin: 0.5rem 0;
+        }
 
-            .tabs {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .tab {
-                padding: 0.75rem 1.5rem;
-            }
-
-            .card {
-                padding: 1.5rem;
-            }
+        .success {
+            background: #E8F5E9;
+            border-left: 4px solid #4CAF50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>X リプ生成ツール</h1>
-            <p class="subtitle">あなたらしいリプライを、効率的に作成</p>
-        </header>
+        <h1>🚀 X リプ生成ツール - ブックマークレット設定ガイド</h1>
 
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('generate')">リプ生成</button>
-            <button class="tab" onclick="switchTab('patterns')">パターン管理</button>
-            <button class="tab" onclick="switchTab('history')">履歴</button>
-        </div>
+        <div class="card">
+            <h2>1. ブックマークレットとは？</h2>
+            <p>
+                ブックマークバーに登録する「ワンクリックツール」です。<br>
+                X（旧Twitter）上でポストを選択して、ブックマークレットをクリックするだけで、
+                自動的にリプ生成ツールが開き、選択したテキストが貼り付けられます。
+            </p>
 
-        <!-- リプ生成タブ -->
-        <div id="generate" class="tab-content active">
-            <div class="card">
-                <div class="form-group">
-                    <label>元のポスト内容（任意）</label>
-                    <textarea id="originalPost" placeholder="入力すると、より文脈に合った候補が作れます..." rows="3"></textarea>
-                    <small style="color: var(--text-light); display: block; margin-top: 0.25rem;">※入力しなくても使えます</small>
-                </div>
-                <div class="form-group">
-                    <label>相手のリプライ（必須）</label>
-                    <textarea id="inputReply" placeholder="相手のリプライ内容を貼り付けてください..." rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>このリプにどう返したいですか？</label>
-                    <select id="replyCategory">
-                        <option value="">カテゴリを選択...</option>
-                        <option value="共感系">共感系（わかります、そうですよね）</option>
-                        <option value="質問返し系">質問返し系（どうでしたか？教えてください）</option>
-                        <option value="感謝系">感謝系（ありがとうございます）</option>
-                        <option value="提案系">提案系（こうしてみてはどうですか？）</option>
-                        <option value="励まし系">励まし系（応援してます、頑張ってください）</option>
-                        <option value="その他">その他</option>
-                    </select>
-                </div>
-                <button class="button" onclick="generateCandidates()">候補を生成</button>
-            </div>
-
-            <div id="candidatesArea"></div>
-        </div>
-
-        <!-- パターン管理タブ -->
-        <div id="patterns" class="tab-content">
-            <div class="card">
-                <h2>新しいパターンを追加</h2>
-                <div class="form-group">
-                    <label>カテゴリ</label>
-                    <select id="newCategory">
-                        <option value="共感系">共感系</option>
-                        <option value="質問返し系">質問返し系</option>
-                        <option value="感謝系">感謝系</option>
-                        <option value="提案系">提案系</option>
-                        <option value="励まし系">励まし系</option>
-                        <option value="その他">その他</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>テンプレート（可変部分は〇〇で表記）</label>
-                    <input type="text" id="newTemplate" placeholder="例：ありがとうございます！〇〇を励みにがんばります！">
-                </div>
-                <div class="form-group">
-                    <label>語尾バリエーション（カンマ区切り）</label>
-                    <input type="text" id="newVariations" placeholder="例：です！,ですね〜,ますね">
-                </div>
-                <button class="button" onclick="addPattern()">パターンを追加</button>
-            </div>
-
-            <div class="card">
-                <h2>登録済みパターン</h2>
-                <div id="patternList" class="pattern-list"></div>
+            <div class="note">
+                <strong>💡 こんな時に便利：</strong>
+                <ul>
+                    <li>ポスト内容をコピペする手間を省きたい</li>
+                    <li>リプライをサクッと作成したい</li>
+                    <li>複数のポストに連続でリプしたい</li>
+                </ul>
             </div>
         </div>
 
-        <!-- 履歴タブ -->
-        <div id="history" class="tab-content">
-            <div class="card">
-                <h2>使用履歴</h2>
-                <div id="historyList"></div>
+        <div class="card">
+            <h2>2. 設定方法</h2>
+
+            <div class="step">
+                <strong>ステップ1: ブックマークバーを表示</strong>
+                <ul>
+                    <li><strong>Chrome/Edge:</strong> Ctrl+Shift+B（Windows）/ Cmd+Shift+B（Mac）</li>
+                    <li><strong>Safari:</strong> 表示 > ブックマークバーを表示</li>
+                    <li><strong>Firefox:</strong> Ctrl+Shift+B（Windows）/ Cmd+Shift+B（Mac）</li>
+                </ul>
             </div>
+
+            <div class="step">
+                <strong>ステップ2: ブックマークレットをドラッグ＆ドロップ</strong>
+                <p style="margin: 1rem 0;">
+                    下のボタンを<strong>ブックマークバーにドラッグ</strong>してください：
+                </p>
+                <p style="text-align: center; margin: 2rem 0;">
+                    <a href="javascript:(function(){const%20text=window.getSelection().toString();if(!text){alert('テキストを選択してください');return;}const%20url='https://wakabaspace.github.io/x-reply-tool/?text='+encodeURIComponent(text);window.open(url,'_blank');})();" class="bookmarklet-button" onclick="return false;">🚀 X リプ生成</a>
+                </p>
+                <div class="success">
+                    <strong>✅ 完了！</strong> ブックマークバーに追加されたら、すぐに使えます。
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. 使い方</h2>
+
+            <div class="step">
+                <strong>X（旧Twitter）でポストを選択</strong>
+                <p>リプライしたいポストの内容を、マウスでドラッグして選択します。</p>
+            </div>
+
+            <div class="step">
+                <strong>ブックマークレットをクリック</strong>
+                <p>ブックマークバーの「🚀 X リプ生成」ボタンをクリック。</p>
+            </div>
+
+            <div class="step">
+                <strong>自動でツールが開く</strong>
+                <p>新しいタブでリプ生成ツールが開き、選択したテキストが「元のポスト内容」欄に自動で貼り付けられます。</p>
+            </div>
+
+            <div class="step">
+                <strong>リプライ内容を入力して生成</strong>
+                <p>相手のリプライを入力し、カテゴリを選択して「候補を生成」をクリック。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. トラブルシューティング</h2>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem;">❌ ブックマークレットが動作しない</h3>
+            <ul>
+                <li><strong>テキストを選択してからクリック</strong>：先にテキストを選択（ドラッグ）してから、ブックマークレットをクリック</li>
+                <li><strong>ポップアップブロックを解除</strong>：ブラウザの設定で、新しいタブを開くことを許可</li>
+                <li><strong>ブックマークバーに追加されているか確認</strong>：ドラッグ＆ドロップがうまくいかなかった場合は、もう一度試してください</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem;">❌ テキストが貼り付けられない</h3>
+            <ul>
+                <li><strong>ページをリフレッシュ</strong>：ツールのページを再読み込みしてみてください</li>
+                <li><strong>手動で貼り付け</strong>：うまくいかない場合は、通常通りコピー＆ペーストで使えます</li>
+            </ul>
+
+            <h3 style="margin-top: 1.5rem; font-size: 1.1rem;">💡 より便利な使い方</h3>
+            <ul>
+                <li><strong>複数のリプに連続対応</strong>：ブックマークレットを使えば、複数のポストに次々とリプを作成できます</li>
+                <li><strong>長いポストも楽々</strong>：長文のポストでも、選択してクリックするだけで全文が貼り付けられます</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <strong>🎉 設定完了！</strong>
+            <p style="margin-top: 0.5rem;">
+                これでX上でのリプライ作成がぐっと楽になります。<br>
+                ツールURL: <a href="https://wakabaspace.github.io/x-reply-tool/" style="color: #1D9BF0; text-decoration: none;">https://wakabaspace.github.io/x-reply-tool/</a>
+            </p>
         </div>
     </div>
-
-    <script>
-        // データ管理
-        let patterns = [];
-        let history = [];
-        let currentCandidates = [];
-        let usedIndices = [];
-
-        // 初期パターン
-        const defaultPatterns = [
-            {
-                category: "感謝系",
-                template: "ありがとうございます！お言葉を励みにがんばります",
-                variations: ["ね！", "ね〜", "〜"]
-            },
-            {
-                category: "感謝系",
-                template: "嬉しいです〜！ありがとうございます",
-                variations: ["！", "ね〜", "〜"]
-            },
-            {
-                category: "共感系",
-                template: "わかります！私も同じように思ってました",
-                variations: ["〜", "です〜", "ね〜"]
-            },
-            {
-                category: "共感系",
-                template: "本当にそうですよね〜",
-                variations: ["〜", "ね！", "〜！"]
-            },
-            {
-                category: "質問返し系",
-                template: "それ、気になります！どんな感じでしたか",
-                variations: ["？", "〜？", "ですか〜？"]
-            },
-            {
-                category: "質問返し系",
-                template: "よかったら詳しく教えていただけると嬉しいです",
-                variations: ["〜", "ね〜", "！"]
-            },
-            {
-                category: "励まし系",
-                template: "応援してます！きっとうまくいきます",
-                variations: ["よ〜", "ね！", "〜"]
-            },
-            {
-                category: "励まし系",
-                template: "一緒にがんばりましょう",
-                variations: ["〜", "ね！", "〜！"]
-            },
-            {
-                category: "提案系",
-                template: "こういうのはどうでしょう",
-                variations: ["？", "か〜？", "かね〜？"]
-            },
-            {
-                category: "その他",
-                template: "楽しみにしてます",
-                variations: ["〜！", "ね〜", "〜"]
-            }
-        ];
-
-        // 初期化
-        function init() {
-            const saved = localStorage.getItem('replyPatterns');
-            if (saved) {
-                patterns = JSON.parse(saved);
-            } else {
-                patterns = [...defaultPatterns];
-                savePatterns();
-            }
-
-            const savedHistory = localStorage.getItem('replyHistory');
-            if (savedHistory) {
-                history = JSON.parse(savedHistory);
-            }
-
-            renderPatterns();
-            renderHistory();
-        }
-
-        // タブ切り替え
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        }
-
-        // パターンを保存
-        function savePatterns() {
-            localStorage.setItem('replyPatterns', JSON.stringify(patterns));
-        }
-
-        // 履歴を保存
-        function saveHistory() {
-            localStorage.setItem('replyHistory', JSON.stringify(history));
-        }
-
-        // パターン追加
-        function addPattern() {
-            const category = document.getElementById('newCategory').value;
-            const template = document.getElementById('newTemplate').value;
-            const variations = document.getElementById('newVariations').value;
-
-            if (!template) {
-                alert('テンプレートを入力してください');
-                return;
-            }
-
-            patterns.push({
-                category,
-                template,
-                variations: variations.split(',').map(v => v.trim())
-            });
-
-            savePatterns();
-            renderPatterns();
-
-            document.getElementById('newTemplate').value = '';
-            document.getElementById('newVariations').value = '';
-        }
-
-        // パターン削除
-        function deletePattern(index) {
-            if (confirm('このパターンを削除しますか？')) {
-                patterns.splice(index, 1);
-                savePatterns();
-                renderPatterns();
-            }
-        }
-
-        // パターン表示
-        function renderPatterns() {
-            const list = document.getElementById('patternList');
-            if (patterns.length === 0) {
-                list.innerHTML = '<div class="empty-state">パターンがありません</div>';
-                return;
-            }
-
-            list.innerHTML = patterns.map((pattern, index) => `
-                <div class="pattern-item">
-                    <div class="pattern-category">${pattern.category}</div>
-                    <div class="pattern-template">${pattern.template}</div>
-                    <div class="pattern-variations">語尾: ${pattern.variations.join(', ')}</div>
-                    <button class="delete-button" onclick="deletePattern(${index})">削除</button>
-                </div>
-            `).join('');
-        }
-
-        // キーワードマッチング
-        function analyzeReply(text) {
-            const keywords = {
-                '感謝系': ['ありがとう', 'thanks', '感謝', 'お礼'],
-                '共感系': ['わかる', '同じ', 'そう', 'そうです', '確かに'],
-                '質問返し系': ['どう', 'どんな', '教えて', 'か？', 'ですか'],
-                '励まし系': ['頑張', 'がんば', '応援', '挑戦', '不安'],
-                '提案系': ['どうしよう', '悩んで', '迷って', 'どうすれば']
-            };
-
-            let bestCategory = 'その他';
-            let maxScore = 0;
-
-            for (const [category, words] of Object.entries(keywords)) {
-                const score = words.filter(word => text.includes(word)).length;
-                if (score > maxScore) {
-                    maxScore = score;
-                    bestCategory = category;
-                }
-            }
-
-            return bestCategory;
-        }
-
-        // 候補生成
-        function generateCandidates() {
-            const inputText = document.getElementById('inputReply').value;
-            const category = document.getElementById('replyCategory').value;
-            
-            if (!inputText) {
-                alert('相手のリプライを入力してください');
-                return;
-            }
-
-            if (!category) {
-                alert('カテゴリを選択してください');
-                return;
-            }
-
-            const categoryPatterns = patterns.filter(p => p.category === category);
-            
-            if (categoryPatterns.length === 0) {
-                alert('該当するパターンがありません。パターンを追加してください。');
-                return;
-            }
-
-            usedIndices = [];
-            currentCandidates = getRandomPatterns(categoryPatterns, 3);
-            renderCandidates(category);
-        }
-
-        // ランダムにパターンを取得
-        function getRandomPatterns(categoryPatterns, count) {
-            const available = categoryPatterns.filter((_, index) => !usedIndices.includes(index));
-            
-            if (available.length === 0) {
-                usedIndices = [];
-                return getRandomPatterns(categoryPatterns, count);
-            }
-
-            const selected = [];
-            const tempAvailable = [...available];
-            
-            for (let i = 0; i < Math.min(count, tempAvailable.length); i++) {
-                const randomIndex = Math.floor(Math.random() * tempAvailable.length);
-                const pattern = tempAvailable[randomIndex];
-                const originalIndex = categoryPatterns.indexOf(pattern);
-                usedIndices.push(originalIndex);
-                selected.push(pattern);
-                tempAvailable.splice(randomIndex, 1);
-            }
-
-            return selected;
-        }
-
-        // 候補を再生成
-        function regenerateCandidates() {
-            const category = document.getElementById('replyCategory').value;
-            const categoryPatterns = patterns.filter(p => p.category === category);
-            
-            currentCandidates = getRandomPatterns(categoryPatterns, 3);
-            renderCandidates(category);
-        }
-
-        // 候補を表示
-        function renderCandidates(category) {
-            const area = document.getElementById('candidatesArea');
-            
-            if (currentCandidates.length === 0) {
-                area.innerHTML = '';
-                return;
-            }
-
-            area.innerHTML = `
-                <div class="card">
-                    <h2>候補（${category}）</h2>
-                    ${currentCandidates.map((pattern, index) => {
-                        const variation = pattern.variations[Math.floor(Math.random() * pattern.variations.length)];
-                        const text = pattern.template + variation;
-                        return `
-                            <div class="candidate-card">
-                                <div class="candidate-header">
-                                    <span class="candidate-category">${pattern.category}</span>
-                                </div>
-                                <div class="candidate-text">${text}</div>
-                                <button class="copy-button" onclick="copyToClipboard(\`${text.replace(/`/g, '\\`')}\`, ${index})">コピー</button>
-                            </div>
-                        `;
-                    }).join('')}
-                    <button class="button button-secondary regenerate-button" onclick="regenerateCandidates()">別のパターンを表示</button>
-                </div>
-            `;
-        }
-
-        // クリップボードにコピー
-        function copyToClipboard(text, index) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('コピーしました！');
-                
-                // 履歴に追加
-                history.unshift({
-                    date: new Date().toLocaleString('ja-JP'),
-                    text: text,
-                    category: currentCandidates[index].category
-                });
-                
-                if (history.length > 50) {
-                    history = history.slice(0, 50);
-                }
-                
-                saveHistory();
-                renderHistory();
-            });
-        }
-
-        // 履歴表示
-        function renderHistory() {
-            const list = document.getElementById('historyList');
-            
-            if (history.length === 0) {
-                list.innerHTML = '<div class="empty-state">履歴がありません</div>';
-                return;
-            }
-
-            list.innerHTML = history.map(item => `
-                <div class="history-item">
-                    <div class="history-date">${item.date} - ${item.category}</div>
-                    <div class="history-text">${item.text}</div>
-                </div>
-            `).join('');
-        }
-
-        // 初期化実行
-        init();
-
-        // URLパラメータから自動入力
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const text = params.get('text');
-            if (text) {
-                document.getElementById('originalPost').value = decodeURIComponent(text);
-            }
-        });
-    </script>
 </body>
 </html>
